@@ -1,22 +1,18 @@
 import { useState } from "react";
-
 import Axios from "axios";
 
 export default function MovieSearch() {
   const [search, setSearch] = useState("");
-
   const [movies, setMovies] = useState([]);
 
   const fetchMovies = async () => {
     try {
       const response = await Axios.get(
         `https://imdb-movies-web-series-etc-search.p.rapidapi.com/${search}.json`,
-
         {
           headers: {
             "x-rapidapi-host":
               "imdb-movies-web-series-etc-search.p.rapidapi.com",
-
             "x-rapidapi-key":
               "6719316311msh2f17aa5abbfef7ap1089abjsn8ae165d51c06",
           },
@@ -34,24 +30,24 @@ export default function MovieSearch() {
   };
 
   return (
-    <div>
+    <div className="movie-search-container">
       <input
         type="text"
         value={search}
         onChange={toggleInput}
-        placeholder="search for movies: "
+        placeholder="Search for movies..."
+        className="movie-search-input"
       />
+      <button onClick={fetchMovies} className="movie-search-button">
+        Submit
+      </button>
 
-      <button onClick={fetchMovies}>Submit</button>
-
-      <div>
+      <div className="movie-results-container">
         {movies?.map((movie) => (
-          <div key={movie.id}>
-            <h3>Title : {movie.l}</h3>
-
-            <p>year: {movie.y}</p>
-
-            <p>details: {movie.s}</p>
+          <div key={movie.id} className="movie-item">
+            <h3 className="movie-title">Title: {movie.l}</h3>
+            <p className="movie-year">Year: {movie.y}</p>
+            <p className="movie-details">Details: {movie.s}</p>
           </div>
         ))}
       </div>
